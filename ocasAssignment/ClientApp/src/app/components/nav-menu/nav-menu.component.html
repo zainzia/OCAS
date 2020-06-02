@@ -1,0 +1,25 @@
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+
+    <div class="container">
+      <a class="navbar-brand" [routerLink]="['/']">Acme Widget</a>
+
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]="{ show: isExpanded }">
+        <ul class="navbar-nav flex-grow-3">
+          <li class="nav-item nav-item-margin" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+          </li>
+
+          <li class="nav-item nav-item-margin" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/Event-Details']">Event Details</a>
+          </li>
+
+          <li class="nav-item nav-item-margin" [routerLinkActive]="['link-active']">
+            <button type="button" (click)="signUp()" class="btn btn-primary">Sign Up</button>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+</header>

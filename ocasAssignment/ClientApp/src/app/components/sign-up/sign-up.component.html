@@ -1,0 +1,132 @@
+<div>
+
+  <div class="text-center">
+    <h1>Sign-up for fun Company Events</h1>
+  </div>
+
+  <div class="row marginTop20">
+    <div class="col-md-12">
+      <div *ngIf="events && events.length > 0; then showSignUpForm else showNoEventsMsg"></div>
+    </div>
+  </div>
+
+  <ng-template #showNoEventsMsg>
+    <h4>
+      There are currently no events available to sign-up!
+      <br />
+      Please check back later.
+    </h4>
+  </ng-template>
+
+  <ng-template #showSignUpForm>
+
+    <div class="row marginTop20">
+      <div class="col-md-4">
+        <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+
+          <div class="row">
+            <div class="col-md-12">
+
+              <div class="form-group">
+                <mat-form-field class="width100">
+                  <input matInput type="text" class="form-control" placeholder="First Name" formControlName="firstName">
+                  <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </mat-form-field>
+              </div>
+
+              <div *ngIf="hasError('firstName')" class="text-danger mt-1 mb-1">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                <span class="form-control-feedback ml-2">Please insert a valid Name</span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <mat-form-field class="width100">
+                  <input matInput type="text" class="form-control" placeholder="Last Name" formControlName="lastName">
+                  <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </mat-form-field>
+              </div>
+
+              <div *ngIf="hasError('lastName')" class="text-danger mt-1 mb-1">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                <span class="form-control-feedback ml-2">Please insert a valid Name</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-md-12">
+              <div class="form-group">
+                <mat-form-field class="width100">
+                  <input matInput type="email" class="form-control" formControlName="emailAddress" placeholder="Email Address">
+                  <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </mat-form-field>
+              </div>
+
+              <div *ngIf="hasError('emailAddress')" class="text-danger mt-1 mb-1">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                <span class="form-control-feedback ml-2">Please insert a valid Email</span>
+              </div>
+            </div>
+
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-12">
+              <div class="form-group">
+                <mat-form-field class="width100">
+                  <mat-label>Activity</mat-label>
+                  <mat-select name="event" formControlName="event">
+                    <mat-option *ngFor="let event of events" [value]="event">
+                      {{event.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div *ngIf="hasError('event')" class="text-danger mt-1 mb-1">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                <span class="form-control-feedback ml-2">Please select an Activity.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-md-12">
+
+              <div class="form-group">
+                <mat-form-field class="width100">
+                  <textarea matInput class="form-control" placeholder="Comments" formControlName="comments" rows="10" cols="60"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-md-12">
+              <button type="submit" [disabled]="signUpForm.invalid" class="btn btn-primary btn-block height40">
+                Sign Up!
+              </button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="offset-md-1 col-md-7">
+        <app-events-table></app-events-table>
+      </div>
+    </div>
+
+  </ng-template>
+
+</div>

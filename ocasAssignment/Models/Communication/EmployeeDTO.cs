@@ -1,0 +1,19 @@
+﻿
+namespace ocasAssignment.Models.Communication
+{
+    /// <summary>
+    /// Employee Object used for communication
+    /// </summary>
+    public class EmployeeDTO
+    {
+
+        public int Id { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string EmailAddress { get; set; }
+
+    }
+}

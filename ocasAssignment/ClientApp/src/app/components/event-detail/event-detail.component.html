@@ -1,0 +1,111 @@
+
+<div class="text-center">
+  <h1>Event Details</h1>
+
+  <br/>
+
+  <p>Please select an Event below and enter your email address to view the Event Details.</p>
+</div>
+
+
+<div class="row marginTop20">
+  <div class="col-md-12">
+    <form [formGroup]="eventDetailsForm" (ngSubmit)="onSubmit()">
+
+      <div class="row">
+        <div class="offset-md-2 col-md-4">
+
+          <div class="form-group mt-3">
+            <mat-form-field class="width100">
+              <mat-label>Activity Name</mat-label>
+              <mat-select name="event" formControlName="event">
+                <mat-option *ngFor="let event of events" [value]="event">
+                  {{event.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <mat-form-field class="width100">
+              <input matInput type="email" class="form-control" formControlName="emailAddress" placeholder="Email Address">
+              <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+
+          <div *ngIf="hasError('emailAddress')" class="text-danger mt-1 mb-1">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            <span class="form-control-feedback ml-2">Please insert a valid Email</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="offset-md-4 col-md-4">
+          <button type="submit" [disabled]="eventDetailsForm.invalid" class="btn btn-primary btn-block height40">
+            Get Details
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row marginTop20" *ngIf="selectedEvent">
+  <div class="col-md-12">
+
+    <div class="text-center">
+      <div>
+        <h3>{{ selectedEvent.name }}</h3>
+      </div>
+
+      <div class="mt-2">
+        <b>Start Date</b>: {{ selectedEvent.startDate | date:'medium' }}
+      </div>
+
+      <div class="mt-2">
+        <b>End Date</b>: {{ selectedEvent.endDate | date:'medium' }}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="row marginTop20" *ngIf="employees && employees.length > 0">
+  <div class="col-md-12">
+
+    <div class="text-center">
+      <p>List of people signed up for the events is below.</p>
+    </div>
+    
+    <br/>
+
+    <div>
+      <mat-table [dataSource]="employees" class="mat-elevation-z8">
+        <!-- First Name Column -->
+        <ng-container matColumnDef="FirstName">
+          <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>
+          <mat-cell *matCellDef="let employee"> {{ employee.firstName }} </mat-cell>
+        </ng-container>
+
+        <!-- Last Name Column -->
+        <ng-container matColumnDef="LastName">
+          <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
+          <mat-cell *matCellDef="let employee"> {{ employee.lastName }} </mat-cell>
+        </ng-container>
+
+        <!-- Email Address Column -->
+        <ng-container matColumnDef="EmailAddress">
+          <mat-header-cell *matHeaderCellDef> Email Address </mat-header-cell>
+          <mat-cell *matCellDef="let employee"> {{ employee.emailAddress }} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+  </div>
+</div>

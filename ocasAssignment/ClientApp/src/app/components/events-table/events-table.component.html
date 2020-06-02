@@ -1,0 +1,41 @@
+
+<div class="row">
+  <div class="col-md-12">
+    <div *ngIf="events && events.length > 0; then showTable else showNoEventsMessage"></div>
+  </div>
+</div>
+
+
+<ng-template #showNoEventsMessage>
+  There are currently no upcoming events! Please check back later.
+</ng-template>
+
+
+<ng-template #showTable>
+  <mat-table [dataSource]="events" class="mat-elevation-z8">
+    <!-- Name Column -->
+    <ng-container matColumnDef="Name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let event">
+        <a [routerLink]="['/Event-Details', event.id]">
+          {{ event.name }}
+        </a>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Start Date Column -->
+    <ng-container matColumnDef="StartDate">
+      <mat-header-cell *matHeaderCellDef> Start Date </mat-header-cell>
+      <mat-cell *matCellDef="let event"> {{ event.startDate | date:'medium' }} </mat-cell>
+    </ng-container>
+
+    <!-- End Date Column -->
+    <ng-container matColumnDef="EndDate">
+      <mat-header-cell *matHeaderCellDef> End Date </mat-header-cell>
+      <mat-cell *matCellDef="let event"> {{ event.endDate | date:'medium' }} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</ng-template>
